@@ -34,7 +34,7 @@ public class ClassifyController {
         }
 
         // CALL SERVICE
-        ClassifyResponseDto response = genderizeService.classifyResponseDto(name);
+        ClassifyResponseDto response = genderizeService.classifyName(name);
 
         // RETURN SUCCESS RESPONSE
         return ResponseEntity.ok(

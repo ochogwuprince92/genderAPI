@@ -12,7 +12,7 @@ public class GenderizeService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public ClassifyResponseDto classifyResponseDto(String name ) {
+    public ClassifyResponseDto classifyName(String name ) {
         String url = "https://api.genderize.io?name=" + name;
 
         GenderizeResponseDto response =
