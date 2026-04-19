@@ -7,10 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/api/classify")
 public class ClassifyController {
 
@@ -25,13 +26,11 @@ public class ClassifyController {
 
         // VALIDATION
         if (name == null || name.isBlank()) {
-            return ResponseEntity.status(400).body(
-                    Map.of(
-                            "status", "error",
-                            "message", "name query parameter is required"
-                    )
-            );
-        }
+            Map<String, Object> error = new LinkedHashMap<>();
+            error.put("status", "error");
+            error.put("message", "name query parameter is required");
+
+            return ResponseEntity.status(400).body(error);
 
         // CALL SERVICE
         ClassifyResponseDto response = genderizeService.classifyName(name);
