@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RestController
@@ -31,16 +32,15 @@ public class ClassifyController {
             error.put("message", "name query parameter is required");
 
             return ResponseEntity.status(400).body(error);
+        }
+            // CALL SERVICE
+            ClassifyResponseDto response = genderizeService.classifyName(name);
 
-        // CALL SERVICE
-        ClassifyResponseDto response = genderizeService.classifyName(name);
+            // RETURN SUCCESS RESPONSE
+            Map<String, Object> body = new LinkedHashMap<>();
+            body.put("status", "success");
+            body.put("data", response);
 
-        // RETURN SUCCESS RESPONSE
-        return ResponseEntity.ok(
-                Map.of(
-                        "status", "success",
-                        "data", response
-                )
-        );
+            return ResponseEntity.ok(body);
+        }
     }
-}
