@@ -36,3 +36,4 @@ build/
 # Local environment variables
 application-local.properties
 src/main/resources/application-local.properties
+.env
