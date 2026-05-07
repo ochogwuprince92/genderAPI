@@ -1,5 +1,6 @@
 package com.example.classifier.controller;
 
+import com.example.classifier.dto.CreateProfileRequestDto;
 import com.example.classifier.entity.Profile;
 import com.example.classifier.service.ProfileService;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +21,12 @@ public class ProfileController {
 
     // CREATE PROFILE
     @PostMapping
-    public ResponseEntity<?> createProfile(@RequestBody Map<String, Object> body) {
+    public ResponseEntity<?> createProfile(@RequestBody CreateProfileRequestDto request) {
 
-        Object nameObj = body.get("name");
+        String name = request.getName();
 
         // VALIDATION
-        if (!(nameObj instanceof String name) || name.isBlank()) {
+        if (name == null || name.isBlank()) {
             return ResponseEntity.status(400).body(
                     Map.of("status", "error", "message", "Missing or invalid name")
             );
